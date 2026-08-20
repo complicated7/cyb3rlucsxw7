@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CYB3RLUCSXW7.EXE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="rain"></canvas>
+<div id="scanlines"></div>
+<div id="vignette"></div>
+
+<div id="boot">
+  <div id="boot-lines"></div>
+  <span class="cursor-block"></span>
+  <div class="skip-hint">[ click para pular / press any key ]</div>
+</div>
+
+<header>
+  <div id="logo">
+    <div class="prompt">&gt;_</div>
+    <div class="title">CYB3RLUCSXW7.EXE</div>
+  </div>
+  <nav id="nav"></nav>
+</header>
+
+<main>
+  <section id="home">
+    <div id="hero"><span id="hero-text"></span><span class="caret"></span></div>
+    <p class="tagline">Hack the Planet: informação é poder, poder é liberdade.</p>
+    <div class="terminal">
+      <div class="term-bar">
+        <span class="dot" style="background:#ff2a6d"></span>
+        <span class="dot" style="background:#f7c948"></span>
+        <span class="dot" style="background:#00ff41"></span>
+        <span class="path">&gt; lucsxw7@matrix:~/posts$ ls -la</span>
+      </div>
+      <div class="term-body">
+        <div class="dim" style="margin-bottom:10px;">total <span id="post-count"></span> — drwxr-xr-x lucsxw7 matrix</div>
+        <div id="post-list" style="display:flex; flex-direction:column;"></div>
+        <div style="color:#00ff41; margin-top:14px;">&gt; <span class="blink">_</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="post" class="hidden">
+    <button class="back-btn" id="post-back">&lt; cd ..</button>
+    <div class="panel">
+      <div class="dim" style="font-size:14px;">lucsxw7@matrix:~/posts$ cat <span id="post-file"></span></div>
+      <h1 id="post-title"></h1>
+      <div class="dim" style="font-size:13px; margin-bottom:22px;"><span id="post-date"></span> · <span id="post-size"></span> bytes</div>
+      <div id="post-body"></div>
+      <div style="color:#00ff41; margin-top:24px;">EOF</div>
+    </div>
+  </section>
+
+  <section id="shell" class="hidden">
+    <div id="shell-box">
+      <div class="dim">cyb3rlucsxw7 shell v1.995 — digite "help" para começar.</div>
+      <div id="shell-history"></div>
+      <div id="shell-line">
+        <span style="color:#00ff41;">lucsxw7@matrix:~$</span>
+        <input id="shell-input" autocomplete="off" spellcheck="false">
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>©️ 2026 cyb3rlucsxw7 — the Matrix has you. <span class="blink" style="animation-duration:1.2s;">▮</span></footer>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
