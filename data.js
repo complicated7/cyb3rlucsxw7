@@ -1,6 +1,6 @@
 /* ============================================================
    CYB3RLUCSXW7.EXE — data.js
-   Todo o "conteúdo" do site vive aqui: posts, boot sequence,
+   Todo o conteúdo do site vive aqui: posts, boot sequence,
    frases do hero e comandos do shell falso.
    ============================================================ */
 
@@ -8,7 +8,7 @@
 const BOOT_LINES = [
   [{ text: "CYB3RLUCSXW7 BIOS v3.11 — (C) 1995 Ellingson Mineral Co.", cls: "boot-title" }],
   [{ text: "CPU: MOS 6502 @ 1.023 MHz ..........." }, { text: " OK", cls: "boot-ok" }],
-  [{ text: "Memory check: 640K ..........." }, { text: " OK (ought to be enough)", cls: "boot-ok" }],
+  [{ text: "Memory check: 640K ..........." }, { text: " OK", cls: "boot-ok" }],
   [{ text: "Detecting reality ...........", cls: "boot-fail" }, { text: " FAILED", cls: "boot-fail" }],
   [{ text: "Loading kernel /dev/matrix ..........." }, { text: " OK", cls: "boot-ok" }],
   [{ text: "Mounting /home/lucsxw7/posts ..........." }, { text: " OK", cls: "boot-ok" }],
@@ -94,7 +94,7 @@ const SHELL_COMMANDS = {
 
   ls: () => [
     "total " + POSTS.length,
-    ...POSTS.map(p => "-rw-r--r-- lucsxw7 matrix  " + p.file)
+    ...POSTS.map(p => "-rw-r--r-- lucsxw7 matrix " + p.file)
   ],
 
   cat: (args) => {
