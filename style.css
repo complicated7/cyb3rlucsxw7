@@ -546,3 +546,33 @@ header, .header-container {
     font-size: 11px !important;
   }
 }
+
+/* Ajuste na estrutura da janela de posts */
+.window-panel, .terminal-card {
+  width: 100%;
+  box-sizing: border-box;
+  overflow-x: auto; /* Permite rolagem horizontal se necessário */
+}
+
+/* Alinhamento da lista de arquivos */
+.posts-list, .file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: var(--mono);
+}
+
+.post-item, .file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  white-space: nowrap; /* Evita quebra vertical de texto */
+  gap: 12px;
+  font-size: 0.85rem;
+}
+
+@media (max-width: 768px) {
+  .post-item, .file-item {
+    font-size: 0.75rem; /* Ajusta o tamanho da fonte no celular */
+  }
+}
