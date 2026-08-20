@@ -54,7 +54,7 @@
   }
 
   /* ================================================================
-     2. BOOT SEQUENCE (Acelerado no Mobile)
+     2. BOOT SEQUENCE (Mais cadenciado / lento no mobile)
      ================================================================ */
   function runBoot() {
     return new Promise((resolve) => {
@@ -75,10 +75,10 @@
       document.addEventListener("keydown", onSkip);
       boot.addEventListener("click", onSkip);
 
-      // Acelera a velocidade do boot se for acessado pelo celular
+      // Ritmo do boot no celular ajustado para ser mais visível/lento
       const isMobile = window.innerWidth <= 768;
-      const lineSpeed = isMobile ? 25 : 90;
-      const emptySpeed = isMobile ? 15 : 50;
+      const lineSpeed = isMobile ? 60 : 90;
+      const emptySpeed = isMobile ? 40 : 50;
 
       (async () => {
         for (const line of BOOT_LINES) {
@@ -94,7 +94,7 @@
           lines.appendChild(row);
           await sleep(line.length ? lineSpeed : emptySpeed);
         }
-        await sleep(isMobile ? 200 : 600);
+        await sleep(isMobile ? 400 : 600);
         finish();
       })();
     });
@@ -171,7 +171,7 @@
         '<span class="post-perm dim">-rw-r--r--</span>' +
         '<span class="post-size dim">' + size + '</span>' +
         '<span class="post-date dim">' + post.date + '</span>' +
-        '<span class="post-file-line"><span class="post-name">' + post.file + '</span> — <span class="post-desc">' + post.desc + '</span></span>';
+        '<span class="post-file-line"><span class="post-name">' + post.file + '</span><span class="post-desc"> — ' + post.desc + '</span></span>';
       row.addEventListener("click", () => openPost(post));
       list.appendChild(row);
     });
