@@ -491,3 +491,51 @@ footer {
     font-size: 0.95rem;
   }
 }
+
+/* ============================================================
+   REGRAS RESPONSIVAS (MOBILE - CONFORME MODELO DA PRINT)
+   ============================================================ */
+@media (max-width: 768px) {
+  #app {
+    padding: 12px;
+  }
+
+  .header-title {
+    font-size: 1.4rem;
+  }
+
+  /* Redefine a linha para apenas 2 colunas: Data na esquerda e Nome na direita */
+  .post-row {
+    display: grid !important;
+    grid-template-columns: 80px 1fr !important;
+    align-items: center;
+    gap: 15px;
+    padding: 10px 8px;
+  }
+
+  /* Esconde as permissões e tamanhos */
+  .post-perm,
+  .post-size {
+    display: none !important;
+  }
+
+  /* Ajusta a exibição da data */
+  .post-date {
+    font-size: 0.85rem;
+    line-height: 1.2;
+    white-space: normal;
+  }
+
+  /* Oculta a descrição do post mantendo apenas o nome do arquivo */
+  .post-desc {
+    display: none !important;
+  }
+
+  .post-name {
+    font-size: 0.95rem;
+  }
+
+  #shell {
+    height: 350px;
+  }
+}
