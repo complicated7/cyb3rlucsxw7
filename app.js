@@ -54,7 +54,7 @@
   }
 
   /* ================================================================
-     2. BOOT SEQUENCE (Cadenciado no celular)
+     2. BOOT SEQUENCE
      ================================================================ */
   function runBoot() {
     return new Promise((resolve) => {
@@ -138,13 +138,11 @@
 
     while (true) {
       const phrase = HERO_PHRASES[phraseIndex % HERO_PHRASES.length];
-      // digitar
       for (let i = 0; i <= phrase.length; i++) {
         target.textContent = phrase.slice(0, i);
         await sleep(35);
       }
       await sleep(1600);
-      // apagar
       for (let i = phrase.length; i >= 0; i--) {
         target.textContent = phrase.slice(0, i);
         await sleep(18);
@@ -170,7 +168,7 @@
         '<span class="post-perm dim">-rw-r--r--</span>' +
         '<span class="post-size dim">' + size + '</span>' +
         '<span class="post-date dim">' + post.date + '</span>' +
-        '<span class="post-file-line"><span class="post-name">' + post.file + '</span><span class="post-desc"> — ' + post.desc + '</span></span>';
+        '<span class="post-file-line"><span class="post-name">' + post.file + '</span><span class="post-desc"> - ' + post.desc + '</span></span>';
       row.addEventListener("click", () => openPost(post));
       list.appendChild(row);
     });
@@ -259,7 +257,7 @@
     showSection("home");
 
     await runBoot();
-    runHero(); // roda em loop, não precisa await
+    runHero();
   }
 
   document.addEventListener("DOMContentLoaded", main);
