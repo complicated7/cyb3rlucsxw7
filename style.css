@@ -493,7 +493,7 @@ footer {
 }
 
 /* ============================================================
-   REGRAS RESPONSIVAS (MOBILE - CONFORME MODELO DA PRINT)
+   REGRAS RESPONSIVAS (MOBILE)
    ============================================================ */
 @media (max-width: 768px) {
   #app {
@@ -504,31 +504,28 @@ footer {
     font-size: 1.4rem;
   }
 
-  /* Redefine a linha para apenas 2 colunas: Data na esquerda e Nome na direita */
+  /* No celular mostra apenas 2 colunas: Data e Nome */
   .post-row {
     display: grid !important;
     grid-template-columns: 80px 1fr !important;
     align-items: center;
     gap: 15px;
-    padding: 10px 8px;
+    padding: 8px 0;
   }
 
-  /* Esconde as permissões e tamanhos */
+  /* Oculta permissões e tamanhos no celular */
   .post-perm,
   .post-size {
     display: none !important;
   }
 
-  /* Ajusta a exibição da data */
-  .post-date {
-    font-size: 0.85rem;
-    line-height: 1.2;
-    white-space: normal;
-  }
-
-  /* Oculta a descrição do post mantendo apenas o nome do arquivo */
+  /* Oculta a descrição e o hífen no celular */
   .post-desc {
     display: none !important;
+  }
+
+  .post-date {
+    font-size: 0.85rem;
   }
 
   .post-name {
