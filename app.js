@@ -158,7 +158,7 @@
   /* ================================================================
      5. LISTA DE POSTS (home)
      ================================================================ */
-function buildPostList() {
+  function buildPostList() {
     const list = $("#post-list");
     const count = $("#post-count");
     if (!list || !count) return;
@@ -171,8 +171,7 @@ function buildPostList() {
         '<span class="post-perm dim">-rw-r--r--</span>' +
         '<span class="post-size dim">' + size + '</span>' +
         '<span class="post-date dim">' + post.date + '</span>' +
-        '<span class="post-name">' + post.file + '</span>' +
-        '<span class="post-desc">' + post.desc + '</span>';
+        '<span class="post-file-line"><span class="post-name">' + post.file + '</span> — <span class="post-desc">' + post.desc + '</span></span>';
       row.addEventListener("click", () => openPost(post));
       list.appendChild(row);
     });
