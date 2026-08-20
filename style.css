@@ -479,3 +479,15 @@ footer {
 @media (prefers-reduced-motion: reduce) {
   .cursor-block, .caret, .blink { animation: none; opacity: 1; }
 }
+
+/* Esconde a descrição do post e o hífen apenas no celular */
+@media (max-width: 768px) {
+  .post-desc {
+    display: none !important;
+  }
+  
+  /* Remove o hífen separador no mobile */
+  .post-file-line {
+    font-size: 0.95rem;
+  }
+}
