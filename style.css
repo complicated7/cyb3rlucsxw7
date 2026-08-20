@@ -454,29 +454,84 @@ footer {
 }
 
 /* ===================================================
-   AJUSTES RESPONSIVOS E SUPORTE A TOUCH (MOBILE)
+   ESTRUTURA E RESPONSIVIDADE MATRIX / MOBILE
    =================================================== */
 
-@media (max-width: 768px) {
-  body {
-    font-size: 14px;
-    padding: 10px;
-  }
-
-  /* Impede vazamento do terminal na tela do celular */
-  #boot, main, container {
-    width: 100% !important;
-    max-width: 100vw !important;
-    overflow-x: hidden;
-    word-break: break-word;
-  }
-
-  .panel, .terminal {
-    padding: 12px !important;
-  }
+/* Ajuste do Header com botões alinhados à direita */
+header, .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 2rem;
 }
 
-/* Suporte a toque no celular para os hovers/links */
-a:hover, a:focus, a:active {
-  color: var(--green) !important;
+.nav-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.nav-btn {
+  border: 1px solid var(--green);
+  color: var(--green);
+  background: transparent;
+  padding: 6px 14px;
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+/* Card central com borda verde e janelas no topo */
+.terminal-card, .window-panel {
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  border-radius: 8px;
+  background-color: rgba(10, 15, 10, 0.85);
+  padding: 15px;
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1);
+  margin: 1.5rem 0;
+}
+
+/* Bolinhas do topo da janela (estilo Mac/Terminal) */
+.window-dots {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.dot.red { background-color: #ff5f56; }
+.dot.yellow { background-color: #ffbd2e; }
+.dot.green { background-color: #27c93f; }
+
+/* Media Query para Celular */
+@media (max-width: 768px) {
+  body {
+    padding: 15px !important;
+    font-size: 13px !important;
+  }
+
+  h1, .title {
+    font-size: 1.5rem !important;
+  }
+
+  .terminal-card, .window-panel {
+    width: 100% !important;
+    box-sizing: border-box;
+    padding: 12px !important;
+  }
+
+  /* Alinhamento dos arquivos/listagem no celular */
+  .file-list-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    white-space: nowrap;
+    overflow-x: auto;
+  }
 }
