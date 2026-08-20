@@ -9,8 +9,8 @@
   --green-dim: #0d7a26;
   --pink: #ff2a6d;
   --yellow: #f7c948;
-  --text: #7dffa4;        /* era #c8ffd4 */
-  --text-dim: #29cc5c;    /* era #4f8a5e */
+  --text: #7dffa4;
+  --text-dim: #29cc5c;
   --mono: 'Share Tech Mono', 'Courier New', monospace;
   --display: 'VT323', var(--mono);
   --boot-font: 'JetBrains Mono', 'Courier New', monospace;
@@ -79,15 +79,12 @@ html, body {
   opacity: 0.9;
 }
 
-#boot {
-  color: var(--green);
-}
-
 .boot-ok    { color: var(--green); }
 .boot-title { color: #7DFFA4; }
 .boot-fail  { color: var(--pink); }
 .boot-warn  { color: var(--yellow); }
 .boot-cyan  { color: #4df3ff; }
+
 .cursor-block {
   display: inline-block;
   width: 10px;
@@ -125,11 +122,10 @@ header {
 }
 
 #logo .prompt {
-  font-size: 12px;
+  font-size: 20px;
+  color: var(--green);
   opacity: 0.7;
 }
-
-#logo .prompt { color: var(--green); font-size: 20px; }
 
 #logo .title {
   font-family: var(--display);
@@ -147,38 +143,23 @@ header {
 
 @keyframes glitch {
   0% {
-    text-shadow:
-      2px 0 var(--pink),
-      -2px 0 #4df3ff,
-      0 0 8px rgba(0, 255, 65, 0.5);
+    text-shadow: 2px 0 var(--pink), -2px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
     transform: translate(0, 0);
   }
   25% {
-    text-shadow:
-      -2px 1px var(--pink),
-      2px -1px #4df3ff,
-      0 0 8px rgba(0, 255, 65, 0.5);
+    text-shadow: -2px 1px var(--pink), 2px -1px #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
     transform: translate(-1px, 1px);
   }
   50% {
-    text-shadow:
-      2px -1px var(--pink),
-      -2px 1px #4df3ff,
-      0 0 8px rgba(0, 255, 65, 0.5);
+    text-shadow: 2px -1px var(--pink), -2px 1px #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
     transform: translate(1px, -1px);
   }
   75% {
-    text-shadow:
-      -1px 0 var(--pink),
-      1px 0 #4df3ff,
-      0 0 8px rgba(0, 255, 65, 0.5);
+    text-shadow: -1px 0 var(--pink), 1px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
     transform: translate(-1px, 0);
   }
   100% {
-    text-shadow:
-      2px 0 var(--pink),
-      -2px 0 #4df3ff,
-      0 0 8px rgba(0, 255, 65, 0.5);
+    text-shadow: 2px 0 var(--pink), -2px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
     transform: translate(0, 0);
   }
 }
@@ -284,24 +265,7 @@ main {
 
 .blink { animation: blink 1s steps(1) infinite; }
 
-/* post rows inside the ls -la listing */
-.post-row {
-  display: grid;
-  grid-template-columns: 100px 55px 100px 1fr;
-  gap: 8px;
-  padding: 4px 0;
-  cursor: pointer;
-  font-size: 15px;
-  line-height: 1.3;
-  transition: color 0.15s ease;
-}
-
-.post-perm,
-.post-size,
-.post-date {
-  white-space: nowrap;
-}
-
+/* Post rows inside ls -la listing */
 .post-row {
   display: grid;
   grid-template-columns: 100px 55px 100px 1fr;
@@ -311,23 +275,22 @@ main {
   cursor: pointer;
   font-size: 15px;
   line-height: 1.3;
-  transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
-}
-
-/* Cor base (verde escuro) para o início e elementos gerais */
-.post-row {
   color: var(--text-dim);
   transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 }
 
-/* Nome do arquivo (início da 4ª coluna) em verde claro por padrão */
+.post-perm,
+.post-size,
+.post-date {
+  white-space: nowrap;
+}
+
 .post-row > *:nth-child(4) a,
 .post-row > *:nth-child(4) > *:first-child {
   color: var(--green);
   transition: color 0.2s ease;
 }
 
-/* HOVER: Transição suave acendendo tudo para o verde claro com o destaque */
 .post-row:hover {
   border-left: 3px solid var(--green);
   background-color: rgba(0, 255, 65, 0.08);
@@ -359,9 +322,8 @@ main {
 .back-btn:hover {
   background: rgba(0, 255, 65, 0.1);
   border-color: var(--green);
+  text-decoration: underline;
 }
-
-.back-btn:hover { text-decoration: underline; }
 
 .panel {
   background: var(--panel);
@@ -373,13 +335,13 @@ main {
 #post-title {
   font-family: var(--display);
   font-size: 30px;
-  color: var(--green);   /* era var(--text) */
+  color: var(--green);
   margin: 10px 0 6px;
   line-height: 1.25;
 }
 
 .post-paragraph {
-  color: #a8ffc4;   /* era var(--text) */
+  color: #a8ffc4;
   font-size: 15px;
   line-height: 1.8;
   margin: 0 0 16px;
@@ -439,13 +401,78 @@ footer {
   50%, 100% { opacity: 0; }
 }
 
-/* -------------------- RESPONSIVE -------------------- */
-@media (max-width: 600px) {
-  header { padding: 16px 20px; flex-direction: column; gap: 14px; }
+/* ============================================================
+   AJUSTES EXCLUSIVOS PARA DISPOSITIVOS MÓVEIS (MOBILE)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* 1. Tela de Boot compacta e sem letras gigantes */
+  #boot {
+    padding: 20px 16px;
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .skip-hint {
+    left: 16px;
+    bottom: 20px;
+    font-size: 10px;
+  }
+
+  /* 2. Cabeçalho alinhado (Título na esquerda, Nav na direita) */
+  header {
+    padding: 16px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
   #logo .title { font-size: 20px; }
-  #hero { font-size: 24px; }
-  main { padding: 34px 16px 80px; }
-  .post-owner { min-width: 90px; }
+  #logo .prompt { font-size: 14px; }
+  
+  .nav-link {
+    padding: 6px 10px;
+    font-size: 11px;
+  }
+
+  main {
+    padding: 20px 12px 60px;
+  }
+
+  #hero { font-size: 22px; min-height: 30px; }
+  .tagline { font-size: 13px; margin-bottom: 20px; }
+
+  /* 3. Tabela de Posts proporcional (sem quebras estranhas de texto) */
+  .term-body {
+    padding: 12px 10px;
+    font-size: 12px;
+  }
+
+  .term-bar .path {
+    font-size: 11px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .post-row {
+    grid-template-columns: 85px 42px 75px 1fr;
+    gap: 4px;
+    font-size: 11px;
+    padding: 6px 0 6px 6px;
+  }
+
+  .post-row > *:nth-child(4) {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* Suporte a toque para celulares */
+  .post-row:active {
+    background-color: rgba(0, 255, 65, 0.15);
+    color: var(--green);
+  }
 }
 
 /* -------------------- REDUCED MOTION -------------------- */
