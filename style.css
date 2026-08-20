@@ -512,26 +512,37 @@ header, .header-container {
 /* Media Query para Celular */
 @media (max-width: 768px) {
   body {
-    padding: 15px !important;
-    font-size: 13px !important;
+    padding: 12px !important;
+    font-size: 12px !important;
+  }
+
+  /* Garante o título na esquerda e botões na direita */
+  header, .header-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    text-align: left !important;
+    margin-bottom: 1.5rem !important;
   }
 
   h1, .title {
-    font-size: 1.5rem !important;
+    font-size: 1.1rem !important;
+    margin: 0 !important;
   }
 
+  /* Permite rolagem horizontal na tabela sem quebrar texto verticalmente */
   .terminal-card, .window-panel {
     width: 100% !important;
     box-sizing: border-box;
-    padding: 12px !important;
+    padding: 10px !important;
+    overflow-x: auto !important;
   }
 
-  /* Alinhamento dos arquivos/listagem no celular */
-  .file-list-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    white-space: nowrap;
-    overflow-x: auto;
+  pre, code, .file-list {
+    white-space: pre !important;
+    word-break: normal !important;
+    overflow-x: auto !important;
+    font-size: 11px !important;
   }
 }
