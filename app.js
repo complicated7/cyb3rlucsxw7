@@ -54,7 +54,7 @@
   }
 
   /* ================================================================
-     2. BOOT SEQUENCE (Mais cadenciado / lento no mobile)
+     2. BOOT SEQUENCE (Cadenciado no celular)
      ================================================================ */
   function runBoot() {
     return new Promise((resolve) => {
@@ -75,7 +75,6 @@
       document.addEventListener("keydown", onSkip);
       boot.addEventListener("click", onSkip);
 
-      // Ritmo do boot no celular ajustado para ser mais visível/lento
       const isMobile = window.innerWidth <= 768;
       const lineSpeed = isMobile ? 60 : 90;
       const emptySpeed = isMobile ? 40 : 50;
