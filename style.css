@@ -1,377 +1,274 @@
 /* ============================================================
    CYB3RLUCSXW7.EXE — style.css
+   Estilos globais, tema Matrix/Hacker, boot e responsividade.
    ============================================================ */
 
-:root {
-  --bg: #040604;
-  --panel: #0a0f0a;
-  --green: #00ff41;
-  --green-dim: #0d7a26;
-  --pink: #ff2a6d;
-  --yellow: #f7c948;
-  --text: #7dffa4;
-  --text-dim: #29cc5c;
-  --mono: 'Share Tech Mono', 'Courier New', monospace;
-  --display: 'VT323', var(--mono);
-  --boot-font: 'JetBrains Mono', 'Courier New', monospace;
-}
-
-* { box-sizing: border-box; }
-
-html, body {
+/* -------------------- RESET & VARIÁVEIS -------------------- */
+* {
   margin: 0;
   padding: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--mono);
-  min-height: 100%;
+  box-sizing: border-box;
+}
+
+:root {
+  --bg-color: #040604;
+  --text-main: #00ff41;
+  --text-dim: #008f11;
+  --text-bright: #66ff8a;
+  --accent-cyan: #00f0ff;
+  --accent-fail: #ff2a2a;
+  --accent-warn: #ffb700;
+  --font-mono: 'Share Tech Mono', 'Courier New', Courier, monospace;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 15px;
+  line-height: 1.5;
   overflow-x: hidden;
 }
 
-/* -------------------- CANVAS + OVERLAYS -------------------- */
+/* -------------------- CANVAS CHUVA DE CÓDIGO -------------------- */
 #rain {
   position: fixed;
-  inset: 0;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 0;
+  pointer-events: none;
   opacity: 0.35;
 }
 
-#scanlines {
-  position: fixed;
-  inset: 0;
+/* -------------------- LAYOUT CONTAINER -------------------- */
+#app {
+  position: relative;
   z-index: 1;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 255, 65, 0.035) 0px,
-    rgba(0, 255, 65, 0.035) 1px,
-    transparent 2px,
-    transparent 3px
-  );
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-#vignette {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  box-shadow: inset 0 0 180px rgba(0, 0, 0, 0.85);
+.hidden {
+  display: none !important;
 }
 
-/* -------------------- BOOT SCREEN -------------------- */
+.dim {
+  color: var(--text-dim);
+}
+
+/* -------------------- BOOT SEQUENCE -------------------- */
 #boot {
   position: fixed;
-  inset: 0;
-  z-index: 50;
-  background: var(--bg);
-  color: var(--green);
-  padding: 40px;
-  font-family: var(--boot-font);
-  font-weight: 600;
-  font-size: 16px;
-  letter-spacing: 0.01em;
-  line-height: 1.9;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  z-index: 9999;
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 0.95rem;
   cursor: pointer;
 }
 
-#boot-lines .boot-line {
-  white-space: pre-wrap;
-  opacity: 0.9;
+.boot-line {
+  margin-bottom: 4px;
+  word-break: break-all;
 }
 
-.boot-ok    { color: var(--green); }
-.boot-title { color: #7DFFA4; }
-.boot-fail  { color: var(--pink); }
-.boot-warn  { color: var(--yellow); }
-.boot-cyan  { color: #4df3ff; }
+.boot-title { color: var(--text-bright); font-weight: bold; }
+.boot-ok { color: var(--text-main); }
+.boot-fail { color: var(--accent-fail); }
+.boot-warn { color: var(--accent-warn); }
+.boot-cyan { color: var(--accent-cyan); font-weight: bold; }
 
-.cursor-block {
-  display: inline-block;
-  width: 10px;
-  height: 16px;
-  background: var(--green);
-  animation: blink 1s steps(1) infinite;
-  vertical-align: middle;
-}
-
-.skip-hint {
-  position: absolute;
-  bottom: 30px;
-  left: 40px;
-  font-size: 12px;
-  color: var(--text-dim);
-  letter-spacing: 0.05em;
-}
-
-/* -------------------- HEADER / NAV -------------------- */
+/* -------------------- HEADER & NAV -------------------- */
 header {
-  position: relative;
-  z-index: 3;
+  border-bottom: 1px dashed var(--text-dim);
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+}
+
+.header-title {
+  font-size: 1.8rem;
+  color: var(--text-bright);
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+  margin-bottom: 10px;
+}
+
+nav {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 22px 40px;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.15);
+  gap: 15px;
 }
-
-#logo {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 2px;
-}
-
-#logo .prompt {
-  font-size: 20px;
-  color: var(--green);
-  opacity: 0.7;
-}
-
-#logo .title {
-  font-family: var(--display);
-  font-size: 26px;
-  letter-spacing: 0.08em;
-  color: var(--green);
-  text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
-  cursor: default;
-  position: relative;
-}
-
-#logo .title:hover {
-  animation: glitch 0.35s steps(2, jump-none) infinite;
-}
-
-@keyframes glitch {
-  0% {
-    text-shadow: 2px 0 var(--pink), -2px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
-    transform: translate(0, 0);
-  }
-  25% {
-    text-shadow: -2px 1px var(--pink), 2px -1px #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
-    transform: translate(-1px, 1px);
-  }
-  50% {
-    text-shadow: 2px -1px var(--pink), -2px 1px #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
-    transform: translate(1px, -1px);
-  }
-  75% {
-    text-shadow: -1px 0 var(--pink), 1px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
-    transform: translate(-1px, 0);
-  }
-  100% {
-    text-shadow: 2px 0 var(--pink), -2px 0 #4df3ff, 0 0 8px rgba(0, 255, 65, 0.5);
-    transform: translate(0, 0);
-  }
-}
-
-#nav { display: flex; gap: 10px; }
 
 .nav-link {
   background: transparent;
-  border: 1px solid var(--green-dim);
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 8px 18px;
-  border-radius: 3px;
-  letter-spacing: 0.05em;
+  border: 1px solid var(--text-dim);
+  color: var(--text-main);
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: all 0.2s ease;
 }
 
-.nav-link:hover,
-.nav-link:focus-visible {
-  background: rgba(0, 255, 65, 0.1);
-  border-color: var(--green);
-  outline: none;
+.nav-link:hover {
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  box-shadow: 0 0 10px var(--text-main);
 }
 
-/* -------------------- MAIN LAYOUT -------------------- */
-main {
-  position: relative;
-  z-index: 3;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 60px 24px 100px;
+/* -------------------- HERO TYPING -------------------- */
+.hero-box {
+  background: rgba(0, 255, 65, 0.03);
+  border: 1px solid var(--text-dim);
+  padding: 15px;
+  margin-bottom: 25px;
+  font-size: 1.1rem;
 }
 
-.hidden { display: none !important; }
-
-/* -------------------- HERO -------------------- */
-#hero {
-  font-family: var(--display);
-  font-size: 34px;
-  color: var(--green);
-  min-height: 44px;
-  text-shadow: 0 0 14px rgba(0, 255, 65, 0.7), 0 0 28px rgba(0, 255, 65, 0.3);
-}
-
-.caret {
-  display: inline-block;
-  width: 12px;
-  height: 26px;
-  background: var(--green);
-  margin-left: 4px;
-  animation: blink 0.9s steps(1) infinite;
-  vertical-align: middle;
-}
-
-.tagline {
+.hero-prompt {
   color: var(--text-dim);
-  font-size: 15px;
-  margin: 10px 0 34px;
-  max-width: 52ch;
-  line-height: 1.6;
+  margin-right: 8px;
 }
 
-/* -------------------- TERMINAL WINDOW -------------------- */
-.terminal {
-  background: var(--panel);
-  border: 1px solid rgba(0, 255, 65, 0.35);
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 0 40px rgba(0, 255, 65, 0.15);
+.hero-cursor {
+  animation: blink 0.8s infinite;
 }
 
-.term-bar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 10px 14px;
-  background: #0d130d;
-  border-bottom: 1px solid rgba(0, 255, 65, 0.15);
-  font-size: 13px;
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
 
-.dot {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.term-bar .path {
-  margin-left: auto;
+/* -------------------- LISTA DE POSTS (HOME) -------------------- */
+.post-list-header {
   color: var(--text-dim);
+  margin-bottom: 15px;
+  font-size: 0.9rem;
 }
 
-.term-body {
-  padding: 16px 26px 20px;
-  font-size: 16px;
-  line-height: 1.3;
-}
-
-.dim { color: var(--text-dim); }
-
-.blink { animation: blink 1s steps(1) infinite; }
-
-/* Post rows inside ls -la listing */
 .post-row {
-  display: grid;
-  grid-template-columns: 100px 55px 100px 1fr;
-  gap: 8px;
-  padding: 4px 0 4px 10px;
-  border-left: 3px solid transparent;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 5px;
+  border-bottom: 1px dotted rgba(0, 143, 17, 0.3);
   cursor: pointer;
-  font-size: 15px;
-  line-height: 1.3;
-  color: var(--text-dim);
-  transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
-}
-
-.post-perm,
-.post-size,
-.post-date {
-  white-space: nowrap;
-}
-
-.post-row > *:nth-child(4) a,
-.post-row > *:nth-child(4) > *:first-child {
-  color: var(--green);
-  transition: color 0.2s ease;
+  transition: background 0.15s ease;
 }
 
 .post-row:hover {
-  border-left: 3px solid var(--green);
-  background-color: rgba(0, 255, 65, 0.08);
-  color: var(--green);
+  background: rgba(0, 255, 65, 0.08);
 }
 
-.post-row:hover > *:nth-child(4) a,
-.post-row:hover > *:nth-child(4) > *:first-child {
-  color: var(--green);
-}
-
-/* -------------------- POST VIEW -------------------- */
-#post { padding-top: 10px; }
-
-.back-btn {
-  background: transparent;
-  border: 1px solid var(--green-dim);
-  color: var(--green);
-  font-family: var(--mono);
-  font-size: 13px;
-  padding: 8px 18px;
-  border-radius: 3px;
-  letter-spacing: 0.05em;
-  cursor: pointer;
-  margin-bottom: 20px;
-  transition: all 0.15s ease;
-}
-
-.back-btn:hover {
-  background: rgba(0, 255, 65, 0.1);
-  border-color: var(--green);
+.post-row:hover .post-name {
+  color: var(--text-bright);
   text-decoration: underline;
 }
 
-.panel {
-  background: var(--panel);
-  border: 1px solid rgba(0, 255, 65, 0.2);
-  border-radius: 6px;
-  padding: 24px 28px 32px;
+.post-perm, .post-size, .post-date {
+  font-size: 0.85rem;
+  white-space: nowrap;
 }
 
-#post-title {
-  font-family: var(--display);
-  font-size: 30px;
-  color: var(--green);
-  margin: 10px 0 6px;
-  line-height: 1.25;
+.post-file-line {
+  flex: 1;
+  word-break: break-word;
+}
+
+.post-name {
+  color: var(--text-main);
+  font-weight: bold;
+}
+
+.post-desc {
+  color: var(--text-main);
+}
+
+/* -------------------- POST VIEW -------------------- */
+#post {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.post-meta {
+  border-bottom: 1px solid var(--text-dim);
+  padding-bottom: 10px;
+  font-size: 0.9rem;
+}
+
+.post-title-single {
+  font-size: 1.5rem;
+  color: var(--text-bright);
+  margin-top: 5px;
+}
+
+.post-content {
+  line-height: 1.7;
+  font-size: 1rem;
 }
 
 .post-paragraph {
-  color: #a8ffc4;
-  font-size: 15px;
-  line-height: 1.8;
-  margin: 0 0 16px;
+  margin-bottom: 15px;
 }
 
-/* -------------------- SHELL -------------------- */
-#shell-box {
-  background: var(--panel);
-  border: 1px solid rgba(0, 255, 65, 0.2);
-  border-radius: 6px;
-  padding: 20px 22px;
-  min-height: 360px;
-  font-size: 14px;
+.btn-back {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--text-main);
+  color: var(--text-main);
+  padding: 6px 14px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.btn-back:hover {
+  background: var(--text-main);
+  color: var(--bg-color);
+}
+
+/* -------------------- SHELL INTERATIVO -------------------- */
+#shell {
+  background: rgba(4, 6, 4, 0.85);
+  border: 1px solid var(--text-dim);
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  height: 450px;
 }
 
 #shell-history {
-  margin: 14px 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  max-height: 50vh;
+  flex: 1;
   overflow-y: auto;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
 }
 
-.shell-echo { color: var(--yellow); }
+.shell-echo {
+  color: var(--text-bright);
+  margin-top: 6px;
+}
 
-#shell-line {
+.shell-input-container {
   display: flex;
   align-items: center;
   gap: 8px;
+}
+
+.shell-prompt {
+  color: var(--text-dim);
+  white-space: nowrap;
 }
 
 #shell-input {
@@ -379,103 +276,44 @@ main {
   background: transparent;
   border: none;
   outline: none;
-  color: var(--text);
-  font-family: var(--mono);
-  font-size: 14px;
-  caret-color: var(--green);
-}
-
-/* -------------------- FOOTER -------------------- */
-footer {
-  position: relative;
-  z-index: 3;
-  text-align: center;
-  padding: 26px;
-  font-size: 12px;
-  color: var(--text-dim);
-}
-
-/* -------------------- ANIMATIONS -------------------- */
-@keyframes blink {
-  0%, 49% { opacity: 1; }
-  50%, 100% { opacity: 0; }
+  color: var(--text-main);
+  font-family: var(--font-mono);
+  font-size: 1rem;
 }
 
 /* ============================================================
-   AJUSTES EXCLUSIVOS PARA DISPOSITIVOS MÓVEIS (MOBILE)
+   REGRAS RESPONSIVAS (MOBILE)
    ============================================================ */
-
 @media (max-width: 768px) {
-  /* 1. Tela de Boot compacta e sem letras gigantes */
-  #boot {
-    padding: 20px 16px;
-    font-size: 12px;
-    line-height: 1.5;
+  #app {
+    padding: 12px;
   }
 
-  .skip-hint {
-    left: 16px;
-    bottom: 20px;
-    font-size: 10px;
+  .header-title {
+    font-size: 1.4rem;
   }
 
-  /* 2. Cabeçalho alinhado (Título na esquerda, Nav na direita) */
-  header {
-    padding: 16px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  /* Oculta as colunas de permissão e tamanho no celular */
+  .post-perm,
+  .post-size {
+    display: none;
   }
 
-  #logo .title { font-size: 20px; }
-  #logo .prompt { font-size: 14px; }
-  
-  .nav-link {
-    padding: 6px 10px;
-    font-size: 11px;
-  }
-
-  main {
-    padding: 20px 12px 60px;
-  }
-
-  #hero { font-size: 22px; min-height: 30px; }
-  .tagline { font-size: 13px; margin-bottom: 20px; }
-
-  /* 3. Tabela de Posts proporcional (sem quebras estranhas de texto) */
-  .term-body {
-    padding: 12px 10px;
-    font-size: 12px;
-  }
-
-  .term-bar .path {
-    font-size: 11px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  /* Oculta a descrição e o hífen do post exclusivamente no celular */
+  .post-desc {
+    display: none !important;
   }
 
   .post-row {
-    grid-template-columns: 85px 42px 75px 1fr;
-    gap: 4px;
-    font-size: 11px;
-    padding: 6px 0 6px 6px;
+    gap: 8px;
+    padding: 10px 0;
   }
 
-  .post-row > *:nth-child(4) {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  .post-date {
+    font-size: 0.8rem;
   }
 
-  /* Suporte a toque para celulares */
-  .post-row:active {
-    background-color: rgba(0, 255, 65, 0.15);
-    color: var(--green);
+  #shell {
+    height: 350px;
   }
-}
-
-/* -------------------- REDUCED MOTION -------------------- */
-@media (prefers-reduced-motion: reduce) {
-  .cursor-block, .caret, .blink { animation: none; opacity: 1; }
 }
