@@ -54,14 +54,13 @@
   }
 
   /* ================================================================
-     2. BOOT SEQUENCE
+     2. BOOT SEQUENCE (Acelerado no Mobile)
      ================================================================ */
   function runBoot() {
     return new Promise((resolve) => {
       const boot = $("#boot");
       const lines = $("#boot-lines");
       let skipped = false;
-      let i = 0;
 
       function finish() {
         if (skipped) return;
@@ -76,21 +75,26 @@
       document.addEventListener("keydown", onSkip);
       boot.addEventListener("click", onSkip);
 
+      // Acelera a velocidade do boot se for acessado pelo celular
+      const isMobile = window.innerWidth <= 768;
+      const lineSpeed = isMobile ? 25 : 90;
+      const emptySpeed = isMobile ? 15 : 50;
+
       (async () => {
         for (const line of BOOT_LINES) {
-  if (skipped) return;
-  const row = el("div", "boot-line");
-  if (line.length === 0) {
-    row.innerHTML = "&nbsp;";
-  } else {
-    line.forEach((seg) => {
-      row.appendChild(el("span", seg.cls || "", seg.text));
-    });
-  }
-  lines.appendChild(row);
-  await sleep(line.length ? 90 : 50);
-}
-        await sleep(600);
+          if (skipped) return;
+          const row = el("div", "boot-line");
+          if (line.length === 0) {
+            row.innerHTML = "&nbsp;";
+          } else {
+            line.forEach((seg) => {
+              row.appendChild(el("span", seg.cls || "", seg.text));
+            });
+          }
+          lines.appendChild(row);
+          await sleep(line.length ? lineSpeed : emptySpeed);
+        }
+        await sleep(isMobile ? 200 : 600);
         finish();
       })();
     });
@@ -103,9 +107,9 @@
     const nav = $("#nav");
     if (!nav) return;
     const items = [
-  { label: "HOME", section: "home" },
-  { label: "SHELL", section: "shell" }
-];
+      { label: "HOME", section: "home" },
+      { label: "SHELL", section: "shell" }
+    ];
     items.forEach(({ label, section }) => {
       const btn = el("button", "nav-link", label);
       btn.addEventListener("click", () => showSection(section));
@@ -154,24 +158,24 @@
   /* ================================================================
      5. LISTA DE POSTS (home)
      ================================================================ */
-function buildPostList() {
-  const list = $("#post-list");
-  const count = $("#post-count");
-  if (!list || !count) return;
+  function buildPostList() {
+    const list = $("#post-list");
+    const count = $("#post-count");
+    if (!list || !count) return;
 
-  count.textContent = String(POSTS.length);
-  POSTS.forEach((post) => {
-    const row = el("div", "post-row");
-    const size = (post.body.join(" ").length / 1000).toFixed(1) + "K";
-row.innerHTML =
-  '<span class="post-perm dim">-rw-r--r--</span>' +
-  '<span class="post-size dim">' + size + '</span>' +
-  '<span class="post-date dim">' + post.date + '</span>' +
-  '<span class="post-file-line"><span class="post-name">' + post.file + '</span> — <span class="post-desc">' + post.desc + '</span></span>';
-    row.addEventListener("click", () => openPost(post));
-    list.appendChild(row);
-  });
-}
+    count.textContent = String(POSTS.length);
+    POSTS.forEach((post) => {
+      const row = el("div", "post-row");
+      const size = (post.body.join(" ").length / 1000).toFixed(1) + "K";
+      row.innerHTML =
+        '<span class="post-perm dim">-rw-r--r--</span>' +
+        '<span class="post-size dim">' + size + '</span>' +
+        '<span class="post-date dim">' + post.date + '</span>' +
+        '<span class="post-file-line"><span class="post-name">' + post.file + '</span> — <span class="post-desc">' + post.desc + '</span></span>';
+      row.addEventListener("click", () => openPost(post));
+      list.appendChild(row);
+    });
+  }
 
   function openPost(post) {
     $("#post-file").textContent = post.file;
