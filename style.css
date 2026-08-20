@@ -156,16 +156,14 @@ nav {
   font-size: 0.9rem;
 }
 
-/* Ajuste em Grid para manter alinhamento exato de colunas estilo terminal */
+/* Mantém 4 colunas perfeitamente alinhadas no Desktop */
 .post-row {
   display: grid;
   grid-template-columns: 100px 50px 110px 1fr;
   align-items: center;
   gap: 10px;
-  padding: 6px 5px;
-  border-bottom: 1px dotted rgba(0, 143, 17, 0.2);
+  padding: 4px 0;
   cursor: pointer;
-  transition: background 0.15s ease;
   font-size: 0.95rem;
 }
 
@@ -179,7 +177,6 @@ nav {
 }
 
 .post-perm, .post-size, .post-date {
-  font-size: 0.85rem;
   white-space: nowrap;
 }
 
@@ -297,11 +294,9 @@ nav {
     font-size: 1.4rem;
   }
 
-  /* No mobile, ajusta as colunas removendo permissão e tamanho */
   .post-row {
     grid-template-columns: 100px 1fr;
     gap: 8px;
-    padding: 8px 0;
   }
 
   .post-perm,
@@ -309,13 +304,9 @@ nav {
     display: none;
   }
 
-  /* Oculta a descrição e o hífen exclusivamente no celular */
+  /* Oculta apenas a descrição no celular */
   .post-desc {
     display: none !important;
-  }
-
-  .post-date {
-    font-size: 0.8rem;
   }
 
   #shell {
