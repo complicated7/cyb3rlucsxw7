@@ -156,14 +156,17 @@ nav {
   font-size: 0.9rem;
 }
 
+/* Ajuste em Grid para manter alinhamento exato de colunas estilo terminal */
 .post-row {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  padding: 8px 5px;
-  border-bottom: 1px dotted rgba(0, 143, 17, 0.3);
+  display: grid;
+  grid-template-columns: 100px 50px 110px 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 5px;
+  border-bottom: 1px dotted rgba(0, 143, 17, 0.2);
   cursor: pointer;
   transition: background 0.15s ease;
+  font-size: 0.95rem;
 }
 
 .post-row:hover {
@@ -181,8 +184,9 @@ nav {
 }
 
 .post-file-line {
-  flex: 1;
-  word-break: break-word;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .post-name {
@@ -293,20 +297,21 @@ nav {
     font-size: 1.4rem;
   }
 
-  /* Oculta as colunas de permissão e tamanho no celular */
+  /* No mobile, ajusta as colunas removendo permissão e tamanho */
+  .post-row {
+    grid-template-columns: 100px 1fr;
+    gap: 8px;
+    padding: 8px 0;
+  }
+
   .post-perm,
   .post-size {
     display: none;
   }
 
-  /* Oculta a descrição e o hífen do post exclusivamente no celular */
+  /* Oculta a descrição e o hífen exclusivamente no celular */
   .post-desc {
     display: none !important;
-  }
-
-  .post-row {
-    gap: 8px;
-    padding: 10px 0;
   }
 
   .post-date {
