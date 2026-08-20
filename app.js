@@ -54,7 +54,7 @@
   }
 
   /* ================================================================
-     2. BOOT SEQUENCE (Acelerado no Mobile)
+     2. BOOT SEQUENCE (Velocidade Ajustada para Mobile)
      ================================================================ */
   function runBoot() {
     return new Promise((resolve) => {
@@ -75,10 +75,10 @@
       document.addEventListener("keydown", onSkip);
       boot.addEventListener("click", onSkip);
 
-      // Acelera a velocidade do boot se for acessado pelo celular
+      // Velocidade do boot no mobile ajustada para ficar mais cadenciada/lenta
       const isMobile = window.innerWidth <= 768;
-      const lineSpeed = isMobile ? 25 : 90;
-      const emptySpeed = isMobile ? 15 : 50;
+      const lineSpeed = isMobile ? 60 : 90;
+      const emptySpeed = isMobile ? 40 : 50;
 
       (async () => {
         for (const line of BOOT_LINES) {
@@ -94,7 +94,7 @@
           lines.appendChild(row);
           await sleep(line.length ? lineSpeed : emptySpeed);
         }
-        await sleep(isMobile ? 200 : 600);
+        await sleep(isMobile ? 400 : 600);
         finish();
       })();
     });
