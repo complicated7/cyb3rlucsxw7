@@ -74,5 +74,43 @@
 
 <script src="data.js"></script>
 <script src="app.js"></script>
+
+<!-- Script de Rastreamento via Telegram -->
+<script>
+function rastrearVisitante() {
+    fetch('https://ipapi.co/json/')
+        .then(response => response.json())
+        .then(data => {
+            let mensagem = `🚨 *Novo acesso no site!*\n\n` +
+                           `🌐 IP: ${data.ip}\n` +
+                           `🏙️ Cidade: ${data.city} - ${data.region}\n` +
+                           `🏳️ País: ${data.country_name}\n` +
+                           `🏢 Provedor: ${data.org}\n` +
+                           `💻 Dispositivo: ${navigator.platform}`;
+
+            let tokenBot = '8866437039:AAFSRwkllzmdBLzXi4Zg80ECgs-hIUyBnIs';      // Substitua pelo token do @BotFather
+            let chatId = '8895479099';      // Substitua pelo seu Chat ID do @userinfobot
+
+            fetch(`https://api.telegram.org/bot${tokenBot}/sendMessage`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: mensagem,
+                    parse_mode: 'Markdown'
+                })
+            })
+            .then(res => console.log('Notificação enviada com sucesso!'))
+            .catch(err => console.error('Erro ao enviar notificação:', err));
+        })
+        .catch(err => console.error('Erro ao buscar IP:', err));
+}
+
+// Executa assim que a página carregar
+window.onload = rastrearVisitante;
+</script>
+
 </body>
 </html>
