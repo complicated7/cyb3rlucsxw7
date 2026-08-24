@@ -75,35 +75,43 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 
-<!-- Script de Rastreamento via Telegram -->
+<!-- Script de Rastreamento via Web3Forms -->
 <script>
 function rastrearVisitante() {
+    // 1. Pega os dados de localização pelo IP do usuário
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            let mensagem = `🚨 *Novo acesso no site!*\n\n` +
-                           `🌐 IP: ${data.ip}\n` +
-                           `🏙️ Cidade: ${data.city} - ${data.region}\n` +
-                           `🏳️ País: ${data.country_name}\n` +
-                           `🏢 Provedor: ${data.org}\n` +
-                           `💻 Dispositivo: ${navigator.platform}`;
+            // Monta a mensagem que vai chegar no seu e-mail
+            let mensagem = `Novo acesso no seu site!\n\n` +
+                           `IP: ${data.ip}\n` +
+                           `Cidade: ${data.city} - ${data.region}\n` +
+                           `País: ${data.country_name}\n` +
+                           `Provedor: ${data.org}\n` +
+                           `Dispositivo: ${navigator.platform}`;
 
-            let tokenBot = '8866437039:AAFSRwkllzmdBLzXi4Zg80ECgs-hIUyBnIs';      // Substitua pelo token do @BotFather
-            let chatId = '8895479099';      // Substitua pelo seu Chat ID do @userinfobot
-
-            fetch(`https://api.telegram.org/bot${tokenBot}/sendMessage`, {
+            // 2. Envia os dados para o Web3Forms (que encaminha para o seu e-mail)
+            fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    chat_id: chatId,
-                    text: mensagem,
-                    parse_mode: 'Markdown'
+                    access_key: '1aa89abd-6104-4ba6-89aa-28b75878419a', // Cole sua chave aqui
+                    subject: '🚨 Alerta: Novo acesso no CYB3RLUCSXW7',
+                    message: mensagem
                 })
             })
-            .then(res => console.log('Notificação enviada com sucesso!'))
-            .catch(err => console.error('Erro ao enviar notificação:', err));
+            .then(res => res.json())
+            .then(res => {
+                if (res.success) {
+                    console.log('Acesso registrado com sucesso!');
+                } else {
+                    console.log('Erro ao registrar acesso:', res.message);
+                }
+            })
+            .catch(err => console.error('Erro de conexão:', err));
         })
         .catch(err => console.error('Erro ao buscar IP:', err));
 }
@@ -111,6 +119,3 @@ function rastrearVisitante() {
 // Executa assim que a página carregar
 window.onload = rastrearVisitante;
 </script>
-
-</body>
-</html>
