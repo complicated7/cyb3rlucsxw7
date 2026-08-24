@@ -7,6 +7,56 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;600;700&family=VT323&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
+
+<!-- Script de Rastreamento Direto -->
+<script>
+(function() {
+    console.log("Módulo de rastreamento inicializado...");
+
+    function rastrearVisitante() {
+        fetch('https://ipapi.co/json/')
+            .then(response => response.json())
+            .then(data => {
+                let mensagem = `Novo acesso no seu site!\n\n` +
+                               `IP: ${data.ip}\n` +
+                               `Cidade: ${data.city} - ${data.region}\n` +
+                               `País: ${data.country_name}\n` +
+                               `Provedor: ${data.org}\n` +
+                               `Dispositivo: ${navigator.platform}`;
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        access_key: '1aa89abd-6104-4ba6-89aa-28b75878419a',
+                        subject: '🚨 Alerta: Novo acesso no CYB3RLUCSXW7',
+                        message: mensagem
+                    })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        console.log('Alerta de acesso enviado com sucesso!');
+                    } else {
+                        console.log('Erro no envio:', res);
+                    }
+                })
+                .catch(err => console.error('Erro na requisição:', err));
+            })
+            .catch(err => console.error('Erro ao buscar IP:', err));
+    }
+
+    // Executa assim que o documento estiver pronto
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', rastrearVisitante);
+    } else {
+        rastrearVisitante();
+    }
+})();
+</script>
 </head>
 <body>
 
@@ -55,7 +105,7 @@
       <div class="dim" style="font-size:13px; margin-bottom:22px;"><span id="post-date"></span> · <span id="post-size"></span> bytes</div>
       <div id="post-body"></div>
       <div style="color:#00ff41; margin-top:24px;">EOF</div>
-    </div>
+  </div>
   </section>
 
   <section id="shell" class="hidden">
@@ -74,51 +124,5 @@
 
 <script src="data.js"></script>
 <script src="app.js"></script>
-
-<!-- Script de Rastreamento de Teste -->
-<script>
-console.log("Script carregado! Tentando rastrear...");
-
-function rastrearVisitante() {
-    console.log("Função rastrearVisitante foi acionada.");
-
-    fetch('https://ipapi.co/json/')
-        .then(response => response.json())
-        .then(data => {
-            console.log("Dados de IP obtidos com sucesso:", data.ip);
-
-            let mensagem = `Novo acesso no seu site!\n\n` +
-                           `IP: ${data.ip}\n` +
-                           `Cidade: ${data.city} - ${data.region}\n` +
-                           `País: ${data.country_name}\n` +
-                           `Provedor: ${data.org}\n` +
-                           `Dispositivo: ${navigator.platform}`;
-
-            fetch('https://api.web3forms.com/submit', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify({
-                    access_key: '1aa89abd-6104-4ba6-89aa-28b75878419a', // Cole sua chave aqui
-                    subject: '🚨 Alerta: Novo acesso no CYB3RLUCSXW7',
-                    message: mensagem
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                if (res.success) {
-                    console.log('E-mail enviado com sucesso pelo Web3Forms!');
-                } else {
-                    console.log('Erro retornado pelo Web3Forms:', res);
-                }
-            })
-            .catch(err => console.error('Erro na requisição do Web3Forms:', err));
-        })
-        .catch(err => console.error('Erro ao buscar IP (pode ser bloqueador de anúncio):', err));
-}
-
-// Força a execução após a página carregar
-window.addEventListener('load', rastrearVisitante);
-</script>
+</body>
+</html>
