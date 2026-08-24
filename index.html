@@ -75,14 +75,18 @@
 <script src="data.js"></script>
 <script src="app.js"></script>
 
-<!-- Script de Rastreamento via Web3Forms -->
+<!-- Script de Rastreamento de Teste -->
 <script>
+console.log("Script carregado! Tentando rastrear...");
+
 function rastrearVisitante() {
-    // 1. Pega os dados de localização pelo IP do usuário
+    console.log("Função rastrearVisitante foi acionada.");
+
     fetch('https://ipapi.co/json/')
         .then(response => response.json())
         .then(data => {
-            // Monta a mensagem que vai chegar no seu e-mail
+            console.log("Dados de IP obtidos com sucesso:", data.ip);
+
             let mensagem = `Novo acesso no seu site!\n\n` +
                            `IP: ${data.ip}\n` +
                            `Cidade: ${data.city} - ${data.region}\n` +
@@ -90,7 +94,6 @@ function rastrearVisitante() {
                            `Provedor: ${data.org}\n` +
                            `Dispositivo: ${navigator.platform}`;
 
-            // 2. Envia os dados para o Web3Forms (que encaminha para o seu e-mail)
             fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
                 headers: {
@@ -98,7 +101,7 @@ function rastrearVisitante() {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: '1aa89abd-6104-4ba6-89aa-28b75878419a', // Cole sua chave aqui
+                    access_key: 'SUA_ACCESS_KEY_AQUI', // Cole sua chave aqui
                     subject: '🚨 Alerta: Novo acesso no CYB3RLUCSXW7',
                     message: mensagem
                 })
@@ -106,16 +109,16 @@ function rastrearVisitante() {
             .then(res => res.json())
             .then(res => {
                 if (res.success) {
-                    console.log('Acesso registrado com sucesso!');
+                    console.log('E-mail enviado com sucesso pelo Web3Forms!');
                 } else {
-                    console.log('Erro ao registrar acesso:', res.message);
+                    console.log('Erro retornado pelo Web3Forms:', res);
                 }
             })
-            .catch(err => console.error('Erro de conexão:', err));
+            .catch(err => console.error('Erro na requisição do Web3Forms:', err));
         })
-        .catch(err => console.error('Erro ao buscar IP:', err));
+        .catch(err => console.error('Erro ao buscar IP (pode ser bloqueador de anúncio):', err));
 }
 
-// Executa assim que a página carregar
-window.onload = rastrearVisitante;
+// Força a execução após a página carregar
+window.addEventListener('load', rastrearVisitante);
 </script>
